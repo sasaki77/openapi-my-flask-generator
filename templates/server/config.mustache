@@ -1,0 +1,25 @@
+{{#settings}}
+class Config(object):
+{{#base}}
+    {{key}} = {{{value}}}
+{{/base}}
+
+
+class DevelopmentConfig(Config):
+{{#development}}
+    {{key}} = {{{value}}}
+{{/development}}
+
+
+class TestingConfig(Config):
+{{#testing}}
+    {{key}} = {{{value}}}
+{{/testing}}
+
+
+config = {
+    "development": "{{packageName}}.config.DevelopmentConfig",
+    "testing": "{{packageName}}.config.TestingConfig",
+    "default": "{{packageName}}.config.DevelopmentConfig",
+}
+{{/settings}}

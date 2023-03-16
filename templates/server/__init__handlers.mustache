@@ -1,0 +1,8 @@
+# coding: utf-8
+
+# flake8: noqa
+from __future__ import absolute_import
+
+from openapi_server.handlers.handlers import (
+{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}    {{operationId}}_handler,
+{{/operation}}{{/operations}}{{/apis}}{{/apiInfo}})
