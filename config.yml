@@ -21,9 +21,8 @@ files:
   __init__handlers.mustache:
     destinationFilename: openapi_server/handlers/__init__.py
     templateType: SupportingFiles
-  __init__.mustache:
+  __init__database.mustache:
     destinationFilename: openapi_server/database/__init__.py
-    templateType: SupportingFiles
   database.mustache:
     destinationFilename: openapi_server/database/database.py
   database-model.mustache:
