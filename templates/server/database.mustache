@@ -1,0 +1,31 @@
+import click
+from flask.cli import with_appcontext
+
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate, downgrade, upgrade
+from flask_marshmallow import Marshmallow
+
+db = SQLAlchemy()
+migrate = Migrate()
+ma = Marshmallow()
+
+
+def init_db(app):
+    import openapi_server.database.models
+
+    db.init_app(app)
+    migrate.init_app(app, db)
+    ma.init_app(app)
+
+    app.cli.add_command(mock_db_command)
+
+
+@click.command("mock-db")
+@with_appcontext
+def mock_db_command():
+    mock_db()
+
+
+def mock_db():
+    downgrade(revision="base")
+    upgrade(revision="head")
