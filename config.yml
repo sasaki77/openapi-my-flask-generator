@@ -27,3 +27,5 @@ files:
     destinationFilename: openapi_server/database/database.py
   database-model.mustache:
     destinationFilename: openapi_server/database/models.py
+  conftest.mustache:
+    destinationFilename: openapi_server/test/conftest.py

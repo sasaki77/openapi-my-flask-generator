@@ -1,0 +1,18 @@
+import pytest
+
+from openapi_server import create_app
+from openapi_server.database.database import mock_db
+
+
+@pytest.fixture()
+def app():
+    app = create_app("testing")
+    with app.app_context():
+        mock_db()
+
+    yield app
+
+
+@pytest.fixture
+def client(app):
+    return app.test_client()
