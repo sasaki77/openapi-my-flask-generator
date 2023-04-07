@@ -4,5 +4,6 @@
 from __future__ import absolute_import
 
 from openapi_server.handlers.handlers import (
+    init_app,
 {{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}    {{operationId}}_handler,
 {{/operation}}{{/operations}}{{/apis}}{{/apiInfo}})

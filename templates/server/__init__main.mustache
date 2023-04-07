@@ -8,6 +8,7 @@ from flask_cors import CORS
 from {{packageName}} import encoder
 from {{packageName}}.database.database import init_db
 from {{packageName}}.config import config
+from {{packageName}}.handlers import init_app
 
 
 def create_app(config_name_=None):
@@ -23,6 +24,7 @@ def create_app(config_name_=None):
     app.add_api('openapi.yaml',
                 arguments={'title': '{{appName}}'},
                 pythonic_params=True)
+    init_app(app)
 
 {{#featureCORS}}
     # add CORS support
