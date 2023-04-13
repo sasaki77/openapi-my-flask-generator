@@ -1,4 +1,4 @@
-templateDir: templates/server
+#templateDir: templates/server
 additionalProperties:
   settings:
     base:
