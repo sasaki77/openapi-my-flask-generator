@@ -9,6 +9,7 @@ from {{packageName}} import encoder
 from {{packageName}}.database.database import init_db
 from {{packageName}}.config import config
 from {{packageName}}.handlers import init_app
+from {{packageName}}.views import init_view
 
 
 def create_app(config_name_=None):
@@ -25,6 +26,7 @@ def create_app(config_name_=None):
                 arguments={'title': '{{appName}}'},
                 pythonic_params=True)
     init_app(app)
+    init_view(app.app)
 
 {{#featureCORS}}
     # add CORS support
