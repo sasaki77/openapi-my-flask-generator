@@ -118,6 +118,6 @@ def {{operationId}}({{#allParams}}{{paramName}}{{^required}}=None{{/required}}{{
             {{/items}}
         {{/isMap}}
     {{/allParams}}
-    return {{operationId}}_handler({{#allParams}}{{paramName}}{{^-last}}, {{/-last}}{{/allParams}})
+    return {{operationId}}_handler({{#allParams}}{{paramName}}{{^-last}}, {{/-last}}{{/allParams}}, connexion.request)
 {{/operation}}
 {{/operations}}

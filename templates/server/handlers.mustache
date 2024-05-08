@@ -1,4 +1,4 @@
 {{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}
-def {{operationId}}_handler({{#allParams}}{{paramName}}{{^-last}}, {{/-last}}{{/allParams}}):
+def {{operationId}}_handler({{#allParams}}{{paramName}}{{^-last}}, {{/-last}}{{/allParams}}, _request):
     return "do some magic"
 {{/operation}}{{/operations}}{{/apis}}{{/apiInfo}}
