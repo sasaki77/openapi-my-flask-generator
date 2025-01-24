@@ -19,13 +19,18 @@ from openapi_server.handlers import (
 {{#operation}}
 
 
-def {{operationId}}({{#allParams}}{{paramName}}{{^required}}=None{{/required}}{{^-last}}, {{/-last}}{{/allParams}}):  # noqa: E501
+def {{operationId}}({{#allParams}}{{#isBodyParam}}body{{/isBodyParam}}{{^isBodyParam}}{{paramName}}{{/isBodyParam}}{{^required}}=None{{/required}}{{^-last}}, {{/-last}}{{/allParams}}):  # noqa: E501
     """{{summary}}{{^summary}}{{operationId}}{{/summary}}
 
     {{notes}} # noqa: E501
 
     {{#allParams}}
+         {{#isBodyParam}}
+    :param body: {{description}}
+         {{/isBodyParam}}
+         {{^isBodyParam}}
     :param {{paramName}}: {{description}}
+         {{/isBodyParam}}
         {{^isContainer}}
             {{#isPrimitiveType}}
     :type {{paramName}}: {{>param_type}}
@@ -39,7 +44,12 @@ def {{operationId}}({{#allParams}}{{paramName}}{{^required}}=None{{/required}}{{
                 {{/isFile}}
                 {{^isFile}}
                     {{^isUuid}}
+                        {{#isBodyParam}}
+    :type body: dict | bytes
+                        {{/isBodyParam}}
+                        {{^isBodyParam}}
     :type {{paramName}}: dict | bytes
+                        {{/isBodyParam}}
                     {{/isUuid}}
                 {{/isFile}}
             {{/isPrimitiveType}}
@@ -79,8 +89,13 @@ def {{operationId}}({{#allParams}}{{paramName}}{{^required}}=None{{/required}}{{
             {{^isPrimitiveType}}
                 {{^isFile}}
                     {{^isUuid}}
+                        {{#isBodyParam}}
+    {{paramName}} = {{baseType}}{{^baseType}}{{#dataType}} {{.}}{{/dataType}}{{/baseType}}.from_dict(body)  # noqa: E501
+                        {{/isBodyParam}}
+                        {{^isBodyParam}}
     if connexion.request.is_json:
         {{paramName}} = {{baseType}}{{^baseType}}{{#dataType}} {{.}}{{/dataType}}{{/baseType}}.from_dict(connexion.request.get_json())  # noqa: E501
+                        {{/isBodyParam}}
                     {{/isUuid}}
                 {{/isFile}}
             {{/isPrimitiveType}}
@@ -118,6 +133,6 @@ def {{operationId}}({{#allParams}}{{paramName}}{{^required}}=None{{/required}}{{
             {{/items}}
         {{/isMap}}
     {{/allParams}}
-    return {{operationId}}_handler({{#allParams}}{{paramName}}, {{/allParams}}connexion.request)
+    return {{operationId}}_handler({{#allParams}}{{paramName}}{{^-last}}, {{/-last}}{{/allParams}}{{#bodyParams}}, body{{/bodyParams}})
 {{/operation}}
 {{/operations}}

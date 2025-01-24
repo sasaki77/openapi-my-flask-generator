@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 
-from {{packageName}} import create_app
+from {{packageName}} import create_app_flask
+
+app = create_app_flask()
 
 
 def main():
-    app = create_app()
     app.run(port={{serverPort}})
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
