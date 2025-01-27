@@ -2,7 +2,8 @@ import os
 
 import connexion
 {{#featureCORS}}
-from flask_cors import CORS
+from connexion.middleware import MiddlewarePosition
+from starlette.middleware.cors import CORSMiddleware
 {{/featureCORS}}
 
 from {{packageName}} import encoder
@@ -35,7 +36,14 @@ def create_app(config_name_=None):
 
 {{#featureCORS}}
     # add CORS support
-    CORS(app.app)
+    app.add_middleware(
+        CORSMiddleware,
+        position=MiddlewarePosition.BEFORE_EXCEPTION,
+        allow_origins=["*"],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
 {{/featureCORS}}
     return app.app
